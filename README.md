@@ -1,66 +1,79 @@
-## Foundry
+## Voting System Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This project implements a Voting System smart contract using Solidity and Foundry. The contract allows users to register to vote, cast votes for different options, and retrieve voting results. It includes comprehensive unit tests and fuzz tests to ensure security and reliability.
 
-Foundry consists of:
+## Features
+1.) Voter Registration: Only the admin can register voters.
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+2.) Voting: Registered voters can cast one vote for a valid option.
 
-## Documentation
+3.) Results Retrieval: Voting results can be retrieved after voting is closed.
 
-https://book.getfoundry.sh/
+4.) Security: Includes checks to prevent double voting, unregistered voting, and invalid option selection.
 
-## Usage
+5.) Fuzz Testing: Comprehensive fuzz tests to ensure robustness against edge cases.
 
-### Build
+## Requirements
 
-```shell
-$ forge build
+1.) Foundry
+
+2.) Node.js (optional, for additional tooling)
+
+3.) An Ethereum wallet (for deployment)
+
+## Setup
+
+1.) Setup Foundry:
+```bash
+curl -L https://getfoundry.sh | bash
+foundryup
 ```
 
-### Test
-
-```shell
-$ forge test
+2.) Clone the repository:
+```bash
+git clone https://github.com/Amaze09/Voting.git
+cd Voting
 ```
 
-### Format
-
-```shell
-$ forge fmt
+3.) Compile the contract:
+```bash
+forge build
 ```
 
-### Gas Snapshots
+## Running Tests
+The project includes both unit tests and fuzz tests to ensure the contract behaves as expected.
 
-```shell
-$ forge snapshot
+Run All Tests
+```bash
+forge test
 ```
 
-### Anvil
+## Deployment
+To deploy the contract, follow these steps:
 
-```shell
-$ anvil
+Run the Deployment Script:
+```bash
+forge script script/DeployVotingSystem.s.sol:DeployVotingSystem --broadcast --rpc-url <RPC_URL> --private-key <PRIVATE_KEY> --verify --etherscan-api-key <API_KEY>
 ```
 
-### Deploy
+## Contract Details
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+registerVoter(address voterAddress): Registers a voter (admin only).
 
-### Cast
+castVote(uint256 optionIndex): Allows a registered voter to cast a vote.
 
-```shell
-$ cast <subcommand>
-```
+closeVoting(): Closes the voting process (admin only).
 
-### Help
+getResults(): Retrieves the voting results (only after voting is closed).
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+VoterRegistered(address voter): Emitted when a voter is registered.
+
+VoteCast(address voter, uint256 optionIndex): Emitted when a voter casts a vote.
+
+VotingClosed(): Emitted when voting is closed.
+
+
+## Deployed Address
+
+0x9A950a431Bff92eF1E97e6343C9CCd657dFaD4ac (Sepolia)
+
